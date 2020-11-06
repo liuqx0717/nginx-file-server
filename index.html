@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Quanxing's PC</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="./bootstrap.min.css">
+  <script src="./jquery.min.js"></script>
+  <script src="./popper.min.js"></script>
+  <script src="./bootstrap.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href=".">Quanxing's PC</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href=".">Home<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./message.html">Message</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./listdir.html?path=/">Download</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./upload.html?path=/tmp/">Upload</a>
+        </li>
+        <!--
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown link
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row justify-content-center mt-3">
+
+      <div class="col-sm-12 col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Message</h5>
+            <p class="card-text">Push or pull a message.</p>
+            <a href="./message.html" class="btn btn-primary stretched-link" style="width:8em">Message</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Download</h5>
+            <p class="card-text">Go to file list and download a file.</p>
+            <a href="./listdir.html?path=/" class="btn btn-primary stretched-link" style="width:8em">Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Upload</h5>
+            <p class="card-text">Select file(s) and upload it.</p>
+            <a href="./upload.html?path=/tmp/" class="btn btn-primary stretched-link" style="width:8em">Upload</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
