@@ -1,5 +1,6 @@
 // FILE object:
-// {name: "name", date: "04-Jun-2020 00:30", parsedDate: 123456, size: "86K"}
+// {name: "name", dir: false, date: "Tue, 28 Jan 2020 02:00:00 GMT", parsedDate: 123456, size: "86K"}
+// {name: "name", dir: true, date: "Tue, 28 Jan 2020 02:00:00 GMT", parsedDate: 123456, size: "-"}
 // FILELIST object:
 // {files: [FILE]}
 
@@ -20,31 +21,52 @@ const refreshIcon =
   '<path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>' +
   '</svg>';
 
-// @str: HTML file list returned by nginx
+// @list: the JSON returned by nginx autoindex
 // @return: FILELIST object
-function procHTMLFileList(str) {
+function procFileList(list) {
     var ret = {files: []};
-    //var jq_html = $('<div/>').append(str);  // see https://stackoverflow.com/questions/12808770/parsing-of-html-string-using-jquery
-    //var jq_pre = jq_html.find("pre");
-    //$("#status").text(jq_pre.textContent());
-    var lines = str.split('\n');
-    var re = /<a href="(.*)">.*?<\/a> *(.*?)   *(\S*)/
-    var i = 0;
-    while (i < lines.length && !lines[i].includes('>../<')) i++;
-    i++;
-    while (i < lines.length && !lines[i].includes('</pre><hr>')) {
-      m = lines[i].match(re);
-      name = decodeURIComponent(m[1].substring(m[1].lastIndexOf("/", m[1].length - 2) + 1, m[1].length));
-      ret.files.push({name:name, date: m[2], parsedDate: parseDateStr(m[2]), size: m[3]});
-      i++;
+    for (var i = 0; i < list.length; i++) {
+        ret.files.push({
+            name: list[i].name, 
+            dir: list[i].type == "directory",
+            date: (new Date(list[i].mtime)).toLocaleString(), 
+            parsedDate: Date.parse(list[i].mtime), 
+            size: list[i].type == "directory" ? "-" : humanFileSize(list[i].size)
+        });
     }
     return ret;
 }
 
-// @str: "27-Jan-2020 21:50" "27 Jan 2020 21:50"
-// @return: same as Date.parse()
-function parseDateStr(str) {
-    return Date.parse(str.replace(/-/g, ' '));
+/**
+ * Format bytes as human-readable text.
+ * 
+ * @param bytes Number of bytes.
+ * @param si True to use metric (SI) units, aka powers of 1000. False to use 
+ *           binary (IEC), aka powers of 1024.
+ * @param dp Number of decimal places to display.
+ * 
+ * @return Formatted string.
+ */
+function humanFileSize(bytes, si=false, dp=1) {
+    const thresh = si ? 1000 : 1024;
+
+    if (Math.abs(bytes) < thresh) {
+        return bytes + ' B';
+    }
+
+    const units = si 
+        ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'] 
+        : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+    let u = -1;
+    const r = 10**dp;
+
+    do {
+        bytes /= thresh;
+        ++u;
+    } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+
+
+    return bytes.toFixed(dp) + ' ' + units[u];
 }
 
 function getParameterByName(name, url) {
@@ -61,11 +83,11 @@ function getParameterByName(name, url) {
 // some entities (&#039; ...) may be decoded automatically.
 function escapeHtml(unsafe) {
     return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 // encodeURIComponent() excapes all characters except the following:
@@ -85,4 +107,17 @@ function escapePathForURI(path) {
     }
     ret += encodeURIComponent(curr);
     return ret.replace(/[!'()*]/g, escape);
+}
+
+// Remove redundant leading/trailing slashes
+function normalizePath(path) {
+    var ret = "/" + path.replace(/^\/+/, '').replace(/\/+$/, '');
+    if (ret != "/") ret += "/";
+    return ret;
+}
+
+// @path: normalized path
+function getParentPath(path) {
+    if (path != "/") return path.replace(/[^\/]+\/$/, "");
+    else return path;
 }
