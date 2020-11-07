@@ -4,7 +4,7 @@ A a static website as a lightweight file server for downloading/uploading files.
 * File list: support sorting by name/date.
 * Download files.
 * Upload files: support uploading multiple files, selecting destination and creating arbitrary subfolders. Only `tmp` (and its subfolders) are writable. Change the config file if you want.
-* Delete files/folders.
+* Delete files/folders. Only the subfiles/subfolders of `tmp` can be deleted. Change the config file if you want.
 * Read/write text messages.
 * Support file names with special characters (`" ' ? * <> \ @ & :` ...).
 
@@ -50,4 +50,3 @@ sudo restorecon -Rv path/to/this/repository
 ```
 
 4. Start nginx: `sudo systemctl start nginx`.
-
