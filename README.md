@@ -24,7 +24,7 @@ git clone https://github.com/liuqx0717/nginx-file-server.git
 
 3. Run nginx:
     * (For Windows) `cd` into this repository and run `nginx.exe -p . -c nginx.conf`. Press `Ctrl-C` to stop.
-    * (For Unix-like systems) `cd` into this repository and run `./nginx -p . -c nginx.conf`. Run `./nginx -c nginx.conf -s quit` to stop. Note that root privilege is required to listen on port `80`. Change the port in `nginx.conf` to something above `1024` if you don't want to use `sudo`.
+    * (For Unix-like systems) `cd` into this repository and run `./nginx -p . -c nginx.conf`. Run `./nginx -c nginx.conf -s quit` to stop. Note that root privilege is required to listen on port `80`. Change the port in `nginx.conf` to something greater than `1024` if you don't want to use `sudo`.
 
 ### If you want to use the nginx from your distro:
 
