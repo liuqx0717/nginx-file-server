@@ -3,8 +3,8 @@ A a static website as a lightweight file server for downloading/uploading files.
 ## Features
 * File list: support sorting by name/date.
 * Download files.
-* Upload files: support uploading multiple files, selecting destination and creating arbitrary subfolders. Only `tmp` (and its subfolders) are writable. Change the config file if you want.
-* Delete files/folders. Only the subfiles/subfolders of `tmp` can be deleted. Change the config file if you want.
+* Upload files: support uploading multiple files, selecting destination and creating arbitrary subfolders. Only `tmp` (and its subfolders) are writable. You can change the setting in the config file.
+* Delete files/folders. Only the subfiles/subfolders of `tmp` can be deleted. You can change the setting in the config file.
 * Read/write text messages.
 * Support file names with special characters (`" ' ? * <> \ @ & :` ...).
 
