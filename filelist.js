@@ -202,7 +202,7 @@ function createFileList(id) {
         '        Name' +
                  (this.allowCustomSorting ? '&nbsp;&nbsp;' + arrowDownUp : '') +
         '      </th>' +
-        '      <th class="file-list-date" scope="col"' +
+        '      <th class="file-list-date d-none d-md-table-cell" scope="col"' +
         '          style="white-space: nowrap;">' +
         '        Date' +
                  (this.allowCustomSorting ? '&nbsp;&nbsp;' + arrowDownUp : '') +
@@ -244,8 +244,8 @@ function createFileList(id) {
                  escapeHtml(name) +
           '    </a>' +
           '  </td>' +
-          '  <td>' + file.date + '</td>' +
-          '  <td>' + file.size + '</td>' +
+          '  <td class="small d-none d-md-table-cell">' + file.date + '</td>' +
+          '  <td class="small">' + file.size + '</td>' +
           '  <td>' +
           '    <button class="file-list-delete close" type="button"' +
           '            aria-label="Delete"' +
